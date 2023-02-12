@@ -13,4 +13,6 @@ module.exports = app => {
   router.post('/api/user/signin', controller.user.signIn);
   router.post('/api/user/login', controller.user.logIn);
   router.get('/api/user/tkcheck', _jwt, controller.user.tokenCheck);
+  router.get('/api/user/info', _jwt, controller.user.getUserInfo);
+  router.post('/api/user/update', _jwt, controller.user.updateUserInfo);
 };

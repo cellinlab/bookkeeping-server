@@ -2,6 +2,8 @@
 
 const Controller = require('egg').Controller;
 
+const defaultAvatar = 'https://p3-passport.byteimg.com/img/user-avatar/69eb877a7c7492fd3c1c237c9eb5345c~100x100.awebp';
+
 class UserController extends Controller {
   async signIn () {
     const { ctx } = this;
@@ -27,7 +29,6 @@ class UserController extends Controller {
       return;
     }
 
-    const defaultAvatar = 'https://p3-passport.byteimg.com/img/user-avatar/69eb877a7c7492fd3c1c237c9eb5345c~100x100.awebp';
     const result = await ctx.service.user.addUser({
       username,
       password,
@@ -103,6 +104,65 @@ class UserController extends Controller {
         ...decode,
       },
     };
+  }
+
+  async getUserInfo () {
+    const { ctx, app } = this;
+
+    const token = ctx.request.header.authorization;
+    const decode = await app.jwt.verify(token, app.config.jwt.secret);
+
+    const userInfo = await ctx.service.user.getUserByName(decode.username);
+
+    ctx.body = {
+      code: 200,
+      msg: '获取用户信息成功',
+      data: {
+        id: userInfo.id,
+        username: userInfo.username,
+        avatar: userInfo.avatar || defaultAvatar,
+        slogan: userInfo.slogan,
+      },
+    };
+  }
+
+  async updateUserInfo () {
+    const { ctx, app } = this;
+    const {
+      slogan = '',
+    } = ctx.request.body;
+
+    try {
+      let user_id;
+      const token = ctx.request.header.authorization;
+      const decode = await app.jwt.verify(token, app.config.jwt.secret);
+      if (!decode) return;
+      user_id = decode.id;
+
+      const userInfo = await ctx.service.user.getUserByName(decode.username);
+
+      const result = await ctx.service.user.updateUser({
+        ...userInfo,
+        slogan,
+      });
+
+      ctx.body = {
+        code: 200,
+        msg: '更新用户信息成功',
+        data: {
+          id: user_id,
+          slogan,
+          username: userInfo.username,
+        }
+      };
+    } catch (e) {
+      console.log('err', e);
+      ctx.body = {
+        code: 500,
+        msg: '更新用户信息失败',
+        data: null,
+      };
+    }
   }
 }
 
