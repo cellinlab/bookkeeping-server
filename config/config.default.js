@@ -43,9 +43,20 @@ module.exports = appInfo => {
     secret: 'CellinLab-bookkeeping'
   };
 
+  config.multipart = {
+    mode: 'file',
+  };
+
+  config.cors = {
+    origin: '*',
+    credentials: true,
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
+  };
+
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
+    uploadDir: 'app/public/upload',
   };
 
   return {

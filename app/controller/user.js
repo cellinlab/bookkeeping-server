@@ -130,6 +130,7 @@ class UserController extends Controller {
     const { ctx, app } = this;
     const {
       slogan = '',
+      avatar = '',
     } = ctx.request.body;
 
     try {
@@ -144,6 +145,7 @@ class UserController extends Controller {
       const result = await ctx.service.user.updateUser({
         ...userInfo,
         slogan,
+        avatar,
       });
 
       ctx.body = {
@@ -153,6 +155,7 @@ class UserController extends Controller {
           id: user_id,
           slogan,
           username: userInfo.username,
+          avatar,
         }
       };
     } catch (e) {

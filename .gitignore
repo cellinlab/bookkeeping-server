@@ -16,3 +16,4 @@ typings/
 config/config.dev.js
 config/config.local.js
 launch.json
+app/public/upload/

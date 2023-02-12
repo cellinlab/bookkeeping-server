@@ -15,4 +15,7 @@ module.exports = app => {
   router.get('/api/user/tkcheck', _jwt, controller.user.tokenCheck);
   router.get('/api/user/info', _jwt, controller.user.getUserInfo);
   router.post('/api/user/update', _jwt, controller.user.updateUserInfo);
+
+  // upload
+  router.post('/api/upload', _jwt, controller.upload.upload);
 };
