@@ -18,4 +18,17 @@ module.exports = app => {
 
   // upload
   router.post('/api/upload', _jwt, controller.upload.upload);
+
+  // bill
+  router.post('/api/bill/add', _jwt, controller.bill.add);
+  router.post('/api/bill/list', _jwt, controller.bill.list);
+  router.post('/api/bill/detail', _jwt, controller.bill.detail);
+  router.post('/api/bill/update', _jwt, controller.bill.update);
+  router.post('/api/bill/delete', _jwt, controller.bill.delete);
+  router.post('/api/bill/statistics', _jwt, controller.bill.statistics);
+
+  // type
+  router.post('/api/type/list', _jwt, controller.type.list);
+  router.post('/api/type/add', _jwt, controller.type.add);
+  router.post('/api/type/delete', _jwt, controller.type.delete);
 };
