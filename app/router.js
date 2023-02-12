@@ -9,4 +9,6 @@ module.exports = app => {
 
   // user
   router.post('/api/user/signin', controller.user.signIn);
+  router.post('/api/user/login', controller.user.logIn);
+  router.get('/api/user/tkcheck', controller.user.tokenCheck);
 };
