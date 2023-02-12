@@ -14,3 +14,5 @@ run/
 typings/
 .nyc_output/
 config/config.dev.js
+config/config.local.js
+launch.json
