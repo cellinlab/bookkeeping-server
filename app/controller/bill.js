@@ -83,7 +83,7 @@ class BillController extends Controller {
       }
       const list = await ctx.service.bill.list(params);
       const _list = list.filter(item => {
-        return moment(item.date).format('YYYY-MM') === date;
+        return moment(item.date).format('YYYY-MM') === moment(date).format('YYYY-MM')
       });
 
       const listMap = _list.reduce((curr, item) => {
@@ -111,7 +111,7 @@ class BillController extends Controller {
       const filterListMap = listMap.slice((page - 1) * page_size, page * page_size);
 
       const __list = list.filter(item => {
-        return moment(item.date).format('YYYY-MM') === date;
+        return moment(item.date).format('YYYY-MM') === moment(date).format('YYYY-MM');
       });
 
       const totalExpense = __list.reduce((curr, item) => {
