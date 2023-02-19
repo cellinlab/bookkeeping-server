@@ -55,7 +55,7 @@ class TypeController extends Controller {
       if (!decode) return;
       user_id = decode.id;
 
-      const result = await ctx.service.type.list({user_id});
+      const result = await app.mysql.query(`SELECT * FROM \`type\` WHERE \`user_id\` = 0 OR  \`user_id\` = ${user_id}`);
 
       ctx.body = {
         code: 200,
